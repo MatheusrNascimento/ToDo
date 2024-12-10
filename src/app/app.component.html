@@ -1,5 +1,26 @@
 <h1 class="todo-title"> {{ title }}</h1>
-
 <ul>
-  <li *ngFor="let todo of todos"> {{ todo }}</li>
+  <div  class="todo-list">
+    <li class="todo-li" *ngFor="let todo of todos">
+      {{ todo.title }} -
+      <button *ngIf="!todo.done" (click)="markAsDone(todo)">Concluida</button>
+      |
+      <button *ngIf="todo.done" (click)="markAsUndone(todo)">Refazer</button>
+      <button (click)="remove(todo)">Remover</button>
+    </li>
+  </div>
 </ul>
+<form [formGroup]="form">
+  <fieldset>
+    <label>Tarefa: </label>
+    <input type="text" placeholder="Titulo da tarefa" maxlength="60" formControlName="title">
+    <small *ngIf="form.get('title')?.invalid && !form.get('title')?.pristine">Este campo deve conter entre 3 e 60 caracteres</small>
+    <button>Salvar</button>
+  </fieldset>
+</form>
+
+
+<!--      Tipos de data Bind   -->
+<!--  usando () que é uma bind do HTML para o TS, significa que a ação se inicia no HTML para ir para o TS fazer algo -->
+<!--  usando [] que é uma bind do TS para o HTML, que significa que a ação se inicia no TS para ir para o HTML  -->
+<!--  usando [()] que é o (Two Way Data Bind), que significa que tanto no TS quando no HTML a ação pode ser iniciada  -->
